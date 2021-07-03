@@ -112,7 +112,7 @@ export default function App(props) {
 
   const DrawerComponent = () => {
     return (
-      <>
+      <React.Fragment>
         <List>
           {links.map(({ text, link, icon }, index) => (
             <ListItem key={text} component={Link} to={link}>
@@ -121,7 +121,7 @@ export default function App(props) {
             </ListItem>
           ))}
         </List>
-      </>
+      </React.Fragment>
     );
   };
 
@@ -160,7 +160,12 @@ export default function App(props) {
               }}
             >
               <div className={classes.drawerHeader}>
-                <IconButton onClick={handleDrawerToggle}>
+                <IconButton
+                  color="inherit"
+                  aria-label="Drawer"
+                  edge="end"
+                  onClick={handleDrawerToggle}
+                >
                   <ChevronLeftIcon />
                 </IconButton>
               </div>
@@ -177,8 +182,8 @@ export default function App(props) {
               open
             >
               <div className={classes.drawerHeader}>
-                <IconButton onClick={handleDrawerToggle}>
-                  <ChevronLeftIcon />
+                <IconButton>
+                  <MenuIcon />
                 </IconButton>
               </div>
               <Divider />
