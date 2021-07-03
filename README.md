@@ -1,6 +1,11 @@
-# Getting Started with Create React App
+# Memory
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Save your memories in local.
+
+Features to come:
+* Convert the web to a Progressive Web App
+* Being able to edit a memory
+
 
 ## Available Scripts
 
