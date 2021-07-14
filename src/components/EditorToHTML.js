@@ -19,7 +19,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function EditorToHTML({ initTitle = new Date().toDateString() }) {
+const initTitle = () => {
+  const savedTitle = `writtenMemory-${new Date().toDateString()}`;
+  if (localStorage.getItem(savedTitle)) {
+    const countMemories = Object.keys(localStorage).filter((name) =>
+      name.includes(savedTitle)
+    ).length;
+    return `${new Date().toDateString()} ${countMemories}`;
+  }
+  return `${new Date().toDateString()}`;
+};
+
+function EditorToHTML({}) {
   const classes = useStyles();
   // Text Memory setup
   const [memory, setMemory] = useState(() => {
@@ -28,10 +39,10 @@ function EditorToHTML({ initTitle = new Date().toDateString() }) {
     }
     return localStorage.getItem("draftWrittenMemory");
   });
-  // Title Text Memory setup
+  // Text Memory Title setup
   const [title, setTitle] = useState(() => {
     if (!localStorage.getItem("draftWrittenMemoryTitle")) {
-      localStorage.setItem("draftWrittenMemoryTitle", initTitle);
+      localStorage.setItem("draftWrittenMemoryTitle", initTitle());
     }
     return localStorage.getItem("draftWrittenMemoryTitle");
   });
@@ -42,9 +53,9 @@ function EditorToHTML({ initTitle = new Date().toDateString() }) {
   };
   const deleteMemory = () => {
     localStorage.setItem("draftWrittenMemory", "");
-    localStorage.setItem("draftWrittenMemoryTitle", "");
+    localStorage.setItem("draftWrittenMemoryTitle", title);
     setMemory("");
-    setTitle("");
+    setTitle(initTitle());
   };
   const saveMemory = () => {
     localStorage.setItem(`writtenMemory-${title}`, memory);
