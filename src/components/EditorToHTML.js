@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DefaultEditor } from "react-simple-wysiwyg";
 import { Paper, TextField, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -19,35 +19,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function EditorToHTML() {
+function EditorToHTML({ initTitle = new Date().toDateString() }) {
   const classes = useStyles();
-  const [resultHTML, setResultHTML] = useState(
-    localStorage.getItem("currentMemory", "")
-  );
-  const [title, setTitle] = useState(
-    localStorage.getItem("currentTitle", new Date().toDateString())
-  );
+  // Text Memory setup
+  const [memory, setMemory] = useState(() => {
+    if (!localStorage.getItem("draftWrittenMemory")) {
+      localStorage.setItem("draftWrittenMemory", "");
+    }
+    return localStorage.getItem("draftWrittenMemory");
+  });
+  // Title Text Memory setup
+  const [title, setTitle] = useState(() => {
+    if (!localStorage.getItem("draftWrittenMemoryTitle")) {
+      localStorage.setItem("draftWrittenMemoryTitle", initTitle);
+    }
+    return localStorage.getItem("draftWrittenMemoryTitle");
+  });
 
-  function onChangeEditor(e) {
-    setResultHTML(e.target.value);
-    localStorage.setItem("currentMemory", e.target.value);
-  }
-  const eraseMemory = () => {
-    localStorage.setItem("currentMemory", "");
-    localStorage.setItem("currenTitle", "");
-    setResultHTML("");
+  const onChangeEditor = (e) => {
+    setMemory(e.target.value);
+    localStorage.setItem("draftWrittenMemory", e.target.value);
+  };
+  const deleteMemory = () => {
+    localStorage.setItem("draftWrittenMemory", "");
+    localStorage.setItem("draftWrittenMemoryTitle", "");
+    setMemory("");
     setTitle("");
   };
   const saveMemory = () => {
-    // TODO: do some analysis before to get some parameters:
-    // Word repetitions, number of words, saved, edited, important words (bold), mood
-    localStorage.setItem(title, resultHTML);
-    eraseMemory();
+    localStorage.setItem(`writtenMemory-${title}`, memory);
+    deleteMemory();
   };
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
-    localStorage.setItem("currentTitle", e.target.value);
+    localStorage.setItem("draftWrittenMemoryTitle", e.target.value);
   };
+
   return (
     <Paper elevation={3} className={classes.paper}>
       <TextField
@@ -60,13 +67,12 @@ function EditorToHTML() {
         fullWidth
       />
 
-      <DefaultEditor value={resultHTML} onChange={onChangeEditor} />
-
+      <DefaultEditor value={memory} onChange={onChangeEditor} />
       <div className={classes.buttons}>
         <IconButton onClick={saveMemory} color="secondary">
           <SaveIcon fontSize="large" /> Save
         </IconButton>
-        <IconButton onClick={eraseMemory} color="secondary">
+        <IconButton onClick={deleteMemory} color="secondary">
           <DeleteIcon fontSize="large" /> Delete
         </IconButton>
       </div>
