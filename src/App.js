@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import EditorToHTML from "./components/EditorToHTML";
+import Archive from "./components/Archive";
 
 import AppBar from "@material-ui/core/AppBar";
 import Drawer from "@material-ui/core/Drawer";
@@ -20,6 +21,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import PostAddIcon from "@material-ui/icons/PostAdd";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -74,9 +76,9 @@ export default function App(props) {
   };
   const links = [
     {
-      text: "About",
-      link: "/about",
-      icon: <InfoIcon />,
+      text: "Editor",
+      link: "/editor",
+      icon: <PostAddIcon />,
       component: <Placeholder />,
       exact: false,
     },
@@ -84,7 +86,7 @@ export default function App(props) {
       text: "Archive",
       link: "/archive",
       icon: <LibraryBooksIcon />,
-      component: <Placeholder />,
+      component: <Archive />,
       exact: false,
     },
     {
@@ -106,6 +108,13 @@ export default function App(props) {
       link: "/",
       icon: <HomeIcon />,
       component: <EditorToHTML />,
+      exact: false,
+    },
+    {
+      text: "About",
+      link: "/about",
+      icon: <InfoIcon />,
+      component: <Placeholder />,
       exact: false,
     },
   ];
@@ -197,9 +206,10 @@ export default function App(props) {
 
           <Switch>
             <Route path="/about" component={Placeholder} />
-            <Route path="/archive" component={Placeholder} />
+            <Route path="/archive" component={Archive} />
             <Route path="/forms" component={Placeholder} />
             <Route path="/stats" component={Placeholder} />
+            <Route path="/editor" component={EditorToHTML} />
             <Route exact path="/" component={EditorToHTML} />
           </Switch>
         </main>
