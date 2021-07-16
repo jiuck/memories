@@ -4,6 +4,7 @@ import { Paper, TextField, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SaveIcon from "@material-ui/icons/Save";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -30,8 +31,9 @@ const initTitle = () => {
   return `${new Date().toDateString()}`;
 };
 
-function EditorToHTML({}) {
+function EditorToHTML() {
   const classes = useStyles();
+  const { id } = useParams();
   // Text Memory setup
   const [memory, setMemory] = useState(() => {
     if (!localStorage.getItem("draftWrittenMemory")) {
@@ -46,6 +48,17 @@ function EditorToHTML({}) {
     }
     return localStorage.getItem("draftWrittenMemoryTitle");
   });
+
+  // Retrieve the written Memory if editing
+  useEffect(() => {
+    if (id) {
+      let auxMemory = localStorage.getItem(id);
+      if (auxMemory) {
+        setMemory(auxMemory);
+        setTitle(id.replace("writtenMemory-", ""));
+      }
+    }
+  }, [id]);
 
   const onChangeEditor = (e) => {
     setMemory(e.target.value);

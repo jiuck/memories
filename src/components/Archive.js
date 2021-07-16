@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { DataGrid } from "@material-ui/data-grid";
 import DeleteIcon from "@material-ui/icons/Delete";
 import {
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   sectionTable: { height: 650 },
+  editButton: { textDecoration: "none" },
 }));
 
 const Archive = () => {
@@ -55,6 +57,22 @@ const Archive = () => {
       headerName: "Piece of text",
       id: 2,
       width: 300,
+    },
+    {
+      field: "edit",
+      headerName: "Edit",
+      id: 3,
+      width: 110,
+      renderCell: (params) => (
+        <Link
+          to={`/editor/${encodeURIComponent(params.row.realTitle)}`}
+          className={classes.editButton}
+        >
+          <Button variant="contained" color="primary" size="small">
+            Edit
+          </Button>
+        </Link>
+      ),
     },
   ];
   const writtenMemoriesRows = () => {
