@@ -6,7 +6,7 @@ import {
   Grid,
   Paper,
   Button,
-  ButtonGroup,
+  IconButton,
   Typography,
 } from "../../node_modules/@material-ui/core";
 import { makeStyles } from "../../node_modules/@material-ui/core/styles";
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionTitle: {
     padding: "1rem",
-    justifyContent: "center",
+    justifyContent: "space-between",
   },
   sectionTable: { height: 650 },
   editButton: { textDecoration: "none" },
@@ -98,20 +98,17 @@ const Archive = () => {
           <Grid
             container
             item
-            justifyContent="space-between"
             alignItems="center"
             className={classes.sectionTitle}
           >
-            <Grid item lg={6} md={6}>
-              <Typography variant="h4">Written Memories</Typography>
-            </Grid>
-            <Grid container item lg={6} md={6} justifyContent="flex-end">
-              <ButtonGroup aria-label="delete button">
-                <Button>
-                  <DeleteIcon onClick={handleDeleteWrittenMemories} />
-                </Button>
-              </ButtonGroup>
-            </Grid>
+            <Typography variant="h4">Written Memories</Typography>
+            <IconButton
+              variant="contained"
+              size="small"
+              onClick={handleDeleteWrittenMemories}
+            >
+              <DeleteIcon style={{ color: "FF0000" }} />
+            </IconButton>
           </Grid>
           <Grid item className={classes.sectionTable}>
             <DataGrid
