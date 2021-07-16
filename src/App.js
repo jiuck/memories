@@ -22,6 +22,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import PostAddIcon from "@material-ui/icons/PostAdd";
+import AccessAlarmIcon from "@material-ui/icons/AccessAlarm";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -100,6 +101,13 @@ export default function App(props) {
       text: "Stats",
       link: "/stats",
       icon: <BarChartIcon />,
+      component: <Placeholder />,
+      exact: false,
+    },
+    {
+      text: "Alarms",
+      link: "/alarms",
+      icon: <AccessAlarmIcon />,
       component: <Placeholder />,
       exact: false,
     },
@@ -211,6 +219,7 @@ export default function App(props) {
             <Route path="/stats" component={Placeholder} />
             <Route path="/editor/:id" component={EditorToHTML} />
             <Route path="/editor/" component={EditorToHTML} />
+            <Route path="/alarms/" component={Placeholder} />
             <Route exact path="/" component={EditorToHTML} />
           </Switch>
         </main>

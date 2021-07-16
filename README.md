@@ -4,11 +4,12 @@ Save your memories in local. Mantain a written diary and a registry with all the
 
 MVP1
 * PWA
-* Being able to create/edit/delete an entry for your diary
+* **Being able to create/edit/delete an entry for your diary**
 * Being able to create/edit/delete the Home Form
 
 MVP2
 * Being able to create/edit/delete a Complex Form
+* Being able to create a notification Schedule with direct link to a Form
 * Synchronize with Google Drive
 
 MVP3
