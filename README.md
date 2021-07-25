@@ -3,11 +3,13 @@
 Save your memories in local. Mantain a written diary and a registry with all the information you need to keep track of your life
 
 MVP1
-* PWA
 * **Being able to create/edit/delete an entry for your diary**
-* Being able to create/edit/delete the Home Form
+* **Being able to use/save the Home Form**
+* Being able to create/edit/delete the home Form (Edit mode)
 
 MVP2
+* PWA
+* Being able to display a Complex Form
 * Being able to create/edit/delete a Complex Form
 * Being able to create a notification Schedule with direct link to a Form
 * Synchronize with Google Drive
@@ -18,17 +20,13 @@ MVP3
 
 Features to come:
 * Convert the web to a Progressive Web App
-* Being able to edit a memory
 * Upload/Download DB
-* Forms Creation/edition/deletion
-** Simple daily check feature form
-** Complex separated forms
 * Data analysis
 ** Creation of simple charts to aggregate forms data
 ** Simple text related charts
 ** Charts playground Creation/edition/delete
 * Connection to Google Drive to allow bigger DB
-* Adding extra security by encription?
+* Adding extra security by encription
 
 
 ## Available Scripts
