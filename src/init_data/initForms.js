@@ -84,7 +84,6 @@ const initDailyFormExample = async () => {
 
 const formTypes = {
   daily: "daily",
-  simple: "simple",
 };
 
 const Form = {
@@ -102,6 +101,7 @@ const Form = {
 
 const questionTypes = {
   check: "check",
+  simple: "simple",
 };
 
 const questionSubtypes = {
