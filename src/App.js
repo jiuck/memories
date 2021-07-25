@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import EditorToHTML from "./components/EditorToHTML";
 import Archive from "./components/Archive";
+import FormsHome from "./components/FormsHome";
 
 import AppBar from "@material-ui/core/AppBar";
 import Drawer from "@material-ui/core/Drawer";
@@ -69,12 +70,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function App(props) {
   const { container } = props;
-
   const classes = useStyles();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
   const links = [
     {
       text: "Editor",
@@ -94,7 +97,7 @@ export default function App(props) {
       text: "Forms",
       link: "/forms",
       icon: <SpeakerNotesIcon />,
-      component: <Placeholder />,
+      component: <FormsHome />,
       exact: false,
     },
     {
@@ -215,7 +218,7 @@ export default function App(props) {
           <Switch>
             <Route path="/about" component={Placeholder} />
             <Route path="/archive" component={Archive} />
-            <Route path="/forms" component={Placeholder} />
+            <Route path="/forms" component={FormsHome} />
             <Route path="/stats" component={Placeholder} />
             <Route path="/editor/:id" component={EditorToHTML} />
             <Route path="/editor/" component={EditorToHTML} />
