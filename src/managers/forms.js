@@ -1,5 +1,9 @@
 import Localbase from "localbase";
-import { formTypes, initDailyFormExample } from "./../init_data/initForms";
+import {
+  Form,
+  formTypes,
+  initDailyFormExample,
+} from "./../init_data/initForms";
 
 let db = new Localbase("memories");
 
@@ -22,12 +26,12 @@ const getDailyForm = async () => {
     });
   dailyForm["questions"] = await db
     .collection("questions")
-    .get()
-    .then((questions) => {
-      if (!questions) return [{}];
-      if (!Array.isArray(questions)) return [questions];
-      questions.filter((question) => question.parent_form === "dailyForm");
-      return questions;
+    .get({ keys: true })
+    .then((result) => {
+      if (!result) return [{}];
+      if (!Array.isArray(result)) return [{ ...result.data, key: result.key }];
+      result.filter(({ key, data }) => data.parent_form === "dailyForm");
+      return result.map(({ key, data }) => ({ ...data, key, status: "db" }));
     });
   return dailyForm;
 };
@@ -35,34 +39,62 @@ const getDailyForm = async () => {
 // Save dailyForm into a new log
 const saveDailyFormValues = (values_list) => {
   const data_dump = [];
-
   values_list
     .filter(({ value }) => value)
-    .forEach(({ value, parent_form, parent_question }) => {
+    .forEach(({ value, parent_form, parent_question, parent_question_key }) => {
       data_dump.push(
         db.collection("values").add({
           value,
           creationDate: new Date(),
           parent_form,
           parent_question,
+          parent_question_key,
         })
       );
     });
   Promise.all(data_dump);
 };
 
+const saveDailyFormQuestions = (questions_list) => {
+  console.log("Saving dailyForm edited questions", questions_list);
+  if (questions_list.length < 1) return false;
+  const new_questions_dump = questions_list
+    .filter((q) => q.status === "new")
+    .map((q) =>
+      db.collection("questions").add({
+        ...Form,
+        ...q,
+      })
+    );
+  const del_questions_dump = questions_list
+    .filter((q) => q.status === "del")
+    .map((q) => db.collection("questions").doc(q.key).delete());
+  const mod_questions_dump = questions_list
+    .filter((q) => q.status === "mod")
+    .map((q) =>
+      db
+        .collection("questions")
+        .doc(q.key)
+        .update({
+          ...q,
+          modificationDate: new Date(),
+        })
+    );
+  Promise.all(new_questions_dump, del_questions_dump, mod_questions_dump);
+};
+
 const getForms = async () => {
   let forms = await db
     .collection("forms")
-    .get()
-    .then((forms) => {
-      if (!forms) return [{}];
-      if (!Array.isArray(forms)) return [forms];
-      forms.filter(({ type }) => {
-        return type !== formTypes.daily;
-      });
+    .get({ keys: true })
+    .then((result) => {
+      if (!result) return [{}];
+      if (!Array.isArray(result)) return [{ ...result.data, key: result.key }];
+      result
+        .filter(({ type }) => type !== formTypes.daily)
+        .map(({ key, data }) => ({ ...data, key }));
     });
   return forms;
 };
 
-export { getDailyForm, getForms, saveDailyFormValues };
+export { getDailyForm, getForms, saveDailyFormValues, saveDailyFormQuestions };
