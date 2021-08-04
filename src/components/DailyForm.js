@@ -56,14 +56,12 @@ export default function DailyForm() {
   }, [update]);
 
   const initValuesDailyForm = (form) => {
-    return form.questions.map(({ title, key }) => {
-      return {
-        value: false,
-        parend_id: "dailyForm",
-        parent_question: title,
-        parent_question_key: key,
-      };
-    });
+    return form.questions.map(({ title, key }) => ({
+      value: false,
+      parend_id: "dailyForm",
+      parent_question: title,
+      parent_question_key: key,
+    }));
   };
 
   const handleDailyFormChange = (e) => {
@@ -160,76 +158,71 @@ export default function DailyForm() {
   };
 
   const writeDailyForm = () => {
-    return (
-      dailyForm &&
-      dailyForm.questions &&
-      dailyForm.questions.map(({ id, title, subtitle, help }, i) => (
-        <Tooltip title={help ?? ""} aria-label={subtitle} key={`tt-${i}`}>
-          <Grid container item alignItems="center">
-            <Checkbox
-              key={i}
-              id={i.toString()}
-              onChange={handleDailyFormChange}
-              name={title}
-            />
+    if (!(dailyForm && dailyForm.questions)) return <Grid></Grid>;
+    return dailyForm.questions.map(({ id, title, subtitle, help }, i) => (
+      <Tooltip title={help ?? ""} aria-label={subtitle} key={`tt-${i}`}>
+        <Grid container item alignItems="center">
+          <Checkbox
+            key={i}
+            id={i.toString()}
+            onChange={handleDailyFormChange}
+            name={title}
+          />
 
-            <Typography variant="body1">{title}</Typography>
-          </Grid>
-        </Tooltip>
-      ))
-    );
+          <Typography variant="body1">{title}</Typography>
+        </Grid>
+      </Tooltip>
+    ));
   };
 
   const editDailyForm = () => {
-    return (
-      editDailyFormQuestions &&
-      editDailyFormQuestions.questions &&
-      editDailyFormQuestions.questions.map(
-        ({ id, title, subtitle, help, key, status }, i) => {
-          const deleted = status === "del";
-          return (
-            <Grid
-              container
-              item
-              key={`edit-${id}`}
-              alignItems="center"
-              className={classes.editDailyFormQuestion}
-            >
-              <TextField
-                key={`${id}-0-${key}`}
-                onChange={handleEditQuestionDailyForm}
-                defaultValue={title}
-                variant="outlined"
-                label="title"
-                id={`${id}-title-${key}`}
-                disabled={deleted}
-              />
-              <TextField
-                key={`${id}-1-${key}`}
-                onChange={handleEditQuestionDailyForm}
-                defaultValue={subtitle}
-                variant="outlined"
-                label="subtitle"
-                id={`${id}-subtitle-${key}`}
-                disabled={deleted}
-              />
-              <TextField
-                key={`${id}-2-${key}`}
-                onChange={handleEditQuestionDailyForm}
-                defaultValue={help}
-                variant="outlined"
-                label="help"
-                id={`${id}-help-${key}`}
-                disabled={deleted}
-              />
-              <Delete
-                onClick={() => handleDeleteDailyQuestion(key)}
-                color={deleted ? "primary" : "secondary"}
-              />
-            </Grid>
-          );
-        }
-      )
+    if (!(editDailyFormQuestions && editDailyFormQuestions.questions))
+      return <Grid></Grid>;
+    return editDailyFormQuestions.questions.map(
+      ({ id, title, subtitle, help, key, status }, i) => {
+        const deleted = status === "del";
+        return (
+          <Grid
+            container
+            item
+            key={`edit-${id}`}
+            alignItems="center"
+            className={classes.editDailyFormQuestion}
+          >
+            <TextField
+              key={`${id}-0-${key}`}
+              onChange={handleEditQuestionDailyForm}
+              defaultValue={title}
+              variant="outlined"
+              label="title"
+              id={`${id}-title-${key}`}
+              disabled={deleted}
+            />
+            <TextField
+              key={`${id}-1-${key}`}
+              onChange={handleEditQuestionDailyForm}
+              defaultValue={subtitle}
+              variant="outlined"
+              label="subtitle"
+              id={`${id}-subtitle-${key}`}
+              disabled={deleted}
+            />
+            <TextField
+              key={`${id}-2-${key}`}
+              onChange={handleEditQuestionDailyForm}
+              defaultValue={help}
+              variant="outlined"
+              label="help"
+              id={`${id}-help-${key}`}
+              disabled={deleted}
+            />
+            <Delete
+              onClick={() => handleDeleteDailyQuestion(key)}
+              color={deleted ? "primary" : "secondary"}
+            />
+          </Grid>
+        );
+      }
     );
   };
   return (
