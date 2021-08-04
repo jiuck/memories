@@ -1,13 +1,13 @@
 import React from "react";
 import DailyForm from "./DailyForm";
-import EditForms from "./EditForms";
+// import EditForms from "./EditForms";
 
 const FormsHome = () => {
   return (
     <>
       <DailyForm />
       {/* <ChooseForm /> */}
-      <EditForms />
+      {/* <EditForms /> */}
     </>
   );
 };
