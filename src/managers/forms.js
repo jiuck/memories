@@ -7,13 +7,13 @@ import {
 
 let db = new Localbase("memories");
 
-const filter = (f, data) => {
-  if (!data) return [{}];
-  if (!Array.isArray(data)) return [data];
-  let test = data.filter(f);
-  console.lot(test);
-  return test;
-};
+// const filter = (f, data) => {
+//   if (!data) return [{}];
+//   if (!Array.isArray(data)) return [data];
+//   let test = data.filter(f);
+//   console.lot(test);
+//   return test;
+// };
 
 const getDailyForm = async () => {
   let dailyForm = await db
@@ -56,7 +56,6 @@ const saveDailyFormValues = (values_list) => {
 };
 
 const saveDailyFormQuestions = (questions_list) => {
-  console.log("Saving dailyForm edited questions", questions_list);
   if (questions_list.length < 1) return false;
   const new_questions_dump = questions_list
     .filter((q) => q.status === "new")
