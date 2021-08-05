@@ -45,11 +45,10 @@ export default function CheckDailyForm({ dailyForm }) {
   if (!dailyForm) return <></>;
 
   let initValuesDailyForm = (form) =>
-    form.questions.map(({ title, key }) => ({
+    form.questions.map(({ key }) => ({
       value: false,
-      parend_id: "dailyForm",
-      parent_question: title,
-      parent_question_key: key,
+      parentForm: "dailyForm",
+      parentQuestion: key,
     }));
 
   const handleDailyFormChange = (e) => {

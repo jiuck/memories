@@ -64,7 +64,11 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
       ...prev,
       questions: prev.questions.map((question) => {
         if (question.id === Number(id)) {
-          return { ...question, status: "mod", [name]: e.target.value };
+          return {
+            ...question,
+            status: question.status === "del" ? "del" : "mod",
+            [name]: e.target.value,
+          };
         }
         return { ...question };
       }),
@@ -74,6 +78,7 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
   const handleResetEditDailyForm = () => {
     setEditDailyFormQuestions(dailyForm);
   };
+
   const handleAddQuestion = () => {
     setEditDailyFormQuestions((prevEditQuestions) => {
       const diff =
@@ -107,7 +112,7 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
           if (prevQuestion.key === key) {
             return {
               ...prevQuestion,
-              status: prevQuestion.status === "del" ? "del" : "mod",
+              status: prevQuestion.status === "del" ? "mod" : "del",
             };
           }
           return { ...prevQuestion };

@@ -40,15 +40,14 @@ const getDailyForm = async () => {
 const saveDailyFormValues = (values_list) => {
   const data_dump = [];
   values_list
-    .filter(({ value }) => value)
-    .forEach(({ value, parent_form, parent_question, parent_question_key }) => {
+    .filter(({ value }) => value === true)
+    .forEach(({ value, parentForm, parentQuestion }) => {
       data_dump.push(
         db.collection("values").add({
           value,
           creationDate: new Date(),
-          parent_form,
-          parent_question,
-          parent_question_key,
+          parentForm,
+          parentQuestion,
         })
       );
     });
