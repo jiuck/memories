@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Grid, TextField, Button, ButtonGroup } from "@material-ui/core";
+import {
+  Grid,
+  TextField,
+  Button,
+  ButtonGroup,
+  IconButton,
+} from "@material-ui/core";
 import { AddCircle, Delete, Replay, Save } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -18,11 +24,17 @@ const useStyles = makeStyles((theme) => ({
     marginTop: ".5rem",
     marginBottom: ".5rem",
   },
+  editDailyFormQuestionField: {
+    width: "30%",
+  },
   switch: {
     marginRight: "1rem",
   },
   buttonGroup: {
     marginTop: "1rem",
+  },
+  iconButton: {
+    width: "10%",
   },
 }));
 
@@ -52,9 +64,7 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
       ...prev,
       questions: prev.questions.map((question) => {
         if (question.id === Number(id)) {
-          let editedQuestion = { ...question, status: "mod" };
-          editedQuestion[name] = e.target.value;
-          return editedQuestion;
+          return { ...question, status: "mod", [name]: e.target.value };
         }
         return { ...question };
       }),
@@ -167,6 +177,7 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
                   label="title"
                   id={`${id}-title-${key}`}
                   disabled={deleted}
+                  className={classes.editDailyFormQuestionField}
                 />
                 <TextField
                   key={`${id}-1-${key}`}
@@ -176,6 +187,7 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
                   label="subtitle"
                   id={`${id}-subtitle-${key}`}
                   disabled={deleted}
+                  className={classes.editDailyFormQuestionField}
                 />
                 <TextField
                   key={`${id}-2-${key}`}
@@ -185,12 +197,18 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
                   label="help"
                   id={`${id}-help-${key}`}
                   disabled={deleted}
+                  className={classes.editDailyFormQuestionField}
                 />
-                <Delete
+                <IconButton
+                  className={classes.iconButton}
                   aria-label={`Deletes question ${title} from the dailyForm`}
                   onClick={() => handleDeleteDailyQuestion(key)}
-                  color={deleted ? "primary" : "secondary"}
-                />
+                >
+                  <Delete
+                    color={deleted ? "primary" : "secondary"}
+                    fontSize="large"
+                  />
+                </IconButton>
               </Grid>
             );
           }
