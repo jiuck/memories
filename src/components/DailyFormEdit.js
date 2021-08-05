@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Grid, TextField, Button, ButtonGroup } from "@material-ui/core";
-import { AddCircle, Delete } from "@material-ui/icons";
+import { AddCircle, Delete, Replay, Save } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { saveDailyFormQuestions } from "../managers/forms";
@@ -132,6 +132,7 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
             variant="contained"
             color="primary"
             onClick={handleResetEditDailyForm}
+            startIcon={<Replay />}
           >
             Reset
           </Button>
@@ -140,6 +141,7 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
             variant="contained"
             color="primary"
             onClick={handleSaveDailyFormQuestions}
+            startIcon={<Save />}
           >
             Save!
           </Button>
@@ -185,6 +187,7 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
                   disabled={deleted}
                 />
                 <Delete
+                  aria-label={`Deletes question ${title} from the dailyForm`}
                   onClick={() => handleDeleteDailyQuestion(key)}
                   color={deleted ? "primary" : "secondary"}
                 />

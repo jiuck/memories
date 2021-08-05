@@ -8,6 +8,7 @@ import {
   ButtonGroup,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { Save } from "@material-ui/icons";
 
 import { saveDailyFormValues } from "../managers/forms";
 
@@ -86,6 +87,7 @@ export default function CheckDailyForm({ dailyForm }) {
             variant="contained"
             color="primary"
             onClick={handleSaveDailyFormValues}
+            startIcon={<Save />}
           >
             Save!
           </Button>
