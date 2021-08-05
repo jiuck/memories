@@ -62,7 +62,9 @@ export default function DailyForm() {
               <FormControlLabel
                 control={
                   <Switch
-                    aria-label="Change to editor mode for the Daily Form"
+                    inputProps={{
+                      "aria-label": "Change to editor mode for the Daily Form",
+                    }}
                     checked={edit}
                     onChange={onEditChange}
                     color="primary"
