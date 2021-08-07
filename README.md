@@ -8,8 +8,10 @@ MVP1
 * **Being able to create/edit/delete the home Form (Edit mode)**
 
 MVP2
+* Create git versioning infra
 * PWA
-* Being able to display a Complex Form
+* Locales
+* Being able to display/check a Complex Form (checks form)
 * Being able to create/edit/delete a Complex Form
 * Being able to create a notification Schedule with direct link to a Form
 
