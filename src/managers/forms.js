@@ -33,6 +33,15 @@ const getDailyForm = async () => {
       result.filter(({ key, data }) => data.parent_form === "dailyForm");
       return result.map(({ key, data }) => ({ ...data, key, status: "db" }));
     });
+  dailyForm.questions.sort((a, b) => {
+    if (a.id < b.id) {
+      return -1;
+    }
+    if (a.id > b.id) {
+      return 1;
+    }
+    return 0;
+  });
   return dailyForm;
 };
 
