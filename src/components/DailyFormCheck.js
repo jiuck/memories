@@ -94,19 +94,24 @@ export default function CheckDailyForm({ dailyForm }) {
       </Grid>
       <Grid item container>
         {dailyForm.questions.map(({ id, title, subtitle, help }, i) => (
-          <Tooltip title={help ?? ""} aria-label={subtitle} key={`tt-${i}`}>
-            <Grid container item alignItems="center">
-              <Checkbox
-                checked={tempDailyFormValues[i].value}
-                key={i}
-                id={i.toString()}
-                onChange={handleDailyFormChange}
-                name={title}
-              />
+          <Grid container item alignItems="center">
+            <Checkbox
+              checked={tempDailyFormValues[i].value}
+              key={i}
+              id={i.toString()}
+              onChange={handleDailyFormChange}
+              name={title}
+            />
 
+            <Tooltip
+              title={help ?? ""}
+              aria-label={subtitle}
+              key={`tt-${i}`}
+              placement="right"
+            >
               <Typography variant="body1">{title}</Typography>
-            </Grid>
-          </Tooltip>
+            </Tooltip>
+          </Grid>
         ))}
       </Grid>
     </>
