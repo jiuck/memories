@@ -5,16 +5,16 @@ Save your memories in local. Mantain a written diary and a registry with all the
 MVP1
 * **Being able to create/edit/delete an entry for your diary**
 * **Being able to use/save the Home Form**
-* Being able to create/edit/delete the home Form (Edit mode)
+* **Being able to create/edit/delete the home Form (Edit mode)**
 
 MVP2
 * PWA
 * Being able to display a Complex Form
 * Being able to create/edit/delete a Complex Form
 * Being able to create a notification Schedule with direct link to a Form
-* Synchronize with Google Drive
 
 MVP3
+* Synchronize with Google Drive
 * Make basic statistics on data
 * Prepare to deploy
 
