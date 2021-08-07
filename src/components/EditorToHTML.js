@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { DefaultEditor } from "react-simple-wysiwyg";
-import { Paper, TextField, IconButton } from "@material-ui/core";
+import { Paper, TextField, Grid, ButtonGroup, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SaveIcon from "@material-ui/icons/Save";
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "3rem",
     paddingBottom: "1rem",
   },
-  buttons: {
+  buttonGroup: {
     paddingTop: "1rem",
   },
 }));
@@ -81,25 +81,50 @@ function EditorToHTML() {
 
   return (
     <Paper elevation={3} className={classes.paper}>
-      <TextField
-        id="title"
-        label="Title"
-        variant="outlined"
-        className={classes.title}
-        onChange={onChangeTitle}
-        value={title ? title : ""}
-        fullWidth
-      />
+      <Grid container direction="column">
+        <Grid item>
+          <TextField
+            id="title"
+            label="Title"
+            variant="outlined"
+            className={classes.title}
+            onChange={onChangeTitle}
+            value={title ? title : ""}
+            fullWidth
+          />
+        </Grid>
 
-      <DefaultEditor value={memory} onChange={onChangeEditor} />
-      <div className={classes.buttons}>
-        <IconButton onClick={saveMemory} color="secondary">
-          <SaveIcon fontSize="large" /> Save
-        </IconButton>
-        <IconButton onClick={deleteMemory} color="secondary">
-          <DeleteIcon fontSize="large" /> Delete
-        </IconButton>
-      </div>
+        <Grid item>
+          <DefaultEditor value={memory} onChange={onChangeEditor} />
+        </Grid>
+
+        <Grid item container justify="flex-end" className={classes.buttonGroup}>
+          <ButtonGroup
+            variant="contained"
+            color="primary"
+            aria-label="Button Group"
+          >
+            <Button
+              aria-label="Add new Daily Form"
+              variant="contained"
+              color="primary"
+              onClick={saveMemory}
+              startIcon={<SaveIcon fontSize="large" />}
+            >
+              Save
+            </Button>
+            <Button
+              aria-label="Reset the Daily Form"
+              variant="contained"
+              color="primary"
+              onClick={deleteMemory}
+              startIcon={<DeleteIcon fontSize="large" />}
+            >
+              Delete
+            </Button>
+          </ButtonGroup>
+        </Grid>
+      </Grid>
     </Paper>
   );
 }
