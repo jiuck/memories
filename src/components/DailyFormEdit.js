@@ -51,7 +51,7 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
 
   useEffect(() => {
     if (dailyForm?.questions) {
-      setEditDailyFormQuestions(dailyForm);
+      setEditDailyFormQuestions(dailyForm.questions);
     }
   }, [dailyForm]);
 
@@ -60,71 +60,62 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
   }
 
   const handleSaveDailyFormQuestions = () => {
-    saveDailyFormQuestions(editDailyFormQuestions.questions);
-    setEditDailyFormQuestions(dailyForm);
+    saveDailyFormQuestions(editDailyFormQuestions);
+    setEditDailyFormQuestions(dailyForm.questions);
     setUpdate(true);
   };
 
   const handleEditQuestionDailyForm = (e) => {
-    const [id, name, key] = e.target.id.split("-");
-    setEditDailyFormQuestions((prev) => ({
-      ...prev,
-      questions: prev.questions.map((question) => {
-        if (question.id === Number(id)) {
+    const [questionID, questionName, key] = e.target.id.split("-");
+    setEditDailyFormQuestions((prevQuestions) =>
+      prevQuestions.map(({ id, status, ...other }) => {
+        if (id === Number(questionID)) {
           return {
-            ...question,
-            status: question.status === "db" ? "mod" : question.status,
-            [name]: e.target.value,
+            ...other,
+            status: status === "db" ? "mod" : status,
+            [questionName]: e.target.value,
           };
         }
-        return { ...question };
-      }),
-    }));
+        return { ...other, status, id };
+      })
+    );
   };
 
   const handleResetEditDailyForm = () => {
-    setEditDailyFormQuestions(dailyForm);
+    setEditDailyFormQuestions(dailyForm.questions);
   };
 
   const handleAddQuestion = () => {
-    setEditDailyFormQuestions((prevEditQuestions) => {
-      const diff =
-        prevEditQuestions.questions.length - dailyForm.questions.length + 1;
-      return {
-        ...prevEditQuestions,
-        questions: [
-          ...prevEditQuestions.questions,
-          {
-            key: `tempKey${Math.random() * 100000000}`,
-            id: prevEditQuestions.questions.length + 1,
-            title: `Your Title ${diff}`,
-            subtitle: `Your Subtitle ${diff}`,
-            help: `Your help ${diff}`,
-            creationDate: new Date(),
-            modificationDate: new Date(),
-            type: questionTypes.simple,
-            subType: questionSubtypes.square,
-            parent_form: "dailyForm",
-            status: "new",
-          },
-        ],
-      };
-    });
+    setEditDailyFormQuestions((prevEditQuestions) => [
+      ...prevEditQuestions,
+      {
+        key: `tempKey${Math.random() * 100000000}`,
+        id: prevEditQuestions.length + 1,
+        title: "",
+        subtitle: "",
+        help: "",
+        creationDate: new Date(),
+        modificationDate: new Date(),
+        type: questionTypes.simple,
+        subType: questionSubtypes.square,
+        parent_form: "dailyForm",
+        status: "new",
+      },
+    ]);
   };
 
   const handleDeleteDailyQuestion = (key) => {
-    setEditDailyFormQuestions((prevEditQuestions) => {
-      prevEditQuestions.questions = prevEditQuestions.questions.map(
-        (prevQuestion) =>
-          prevQuestion.key === key
-            ? {
-                ...prevQuestion,
-                status: prevQuestion.status === "del" ? "mod" : "del",
-              }
-            : { ...prevQuestion }
-      );
-      return { ...prevEditQuestions };
-    });
+    setEditDailyFormQuestions((prevEditQuestions) =>
+      prevEditQuestions.map((prevQuestion) => {
+        if (prevQuestion.key === key) {
+          return {
+            ...prevQuestion,
+            status: prevQuestion.status === "del" ? "mod" : "del",
+          };
+        }
+        return { ...prevQuestion };
+      })
+    );
   };
 
   const handleDrag = (e) => {
@@ -132,30 +123,21 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
     const destination = e.destination.index;
     if (source === destination) return true;
     setEditDailyFormQuestions((prevEditQuestions) => {
-      let questions = [...prevEditQuestions.questions];
+      let questions = [...prevEditQuestions];
       let auxQuestion = { ...questions[source] };
       questions.splice(source, 1);
       questions.splice(destination, 0, auxQuestion);
-      console.log({
-        ...prevEditQuestions,
-        questions: questions.map((question, i) => ({
+      return [
+        ...questions.map((question, i) => ({
           ...question,
           id: i,
           status: question.status === "db" ? "mod" : question.status,
         })),
-      });
-      return {
-        ...prevEditQuestions,
-        questions: questions.map((question, i) => ({
-          ...question,
-          id: i,
-          status: question.status === "db" ? "mod" : question.status,
-        })),
-      };
+      ];
     });
   };
 
-  if (!(dailyForm?.questions && editDailyFormQuestions?.questions?.length))
+  if (!(dailyForm?.questions && editDailyFormQuestions?.length))
     return <Grid></Grid>;
 
   return (
@@ -201,7 +183,7 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
             {(provided) => {
               return (
                 <div ref={provided.innerRef} {...provided.droppableProps}>
-                  {editDailyFormQuestions.questions.map(
+                  {editDailyFormQuestions.map(
                     ({ id, title, subtitle, help, key, status }, i) => {
                       const deleted = status === "del";
                       return (
