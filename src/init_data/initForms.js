@@ -108,6 +108,10 @@ const questionSubtypes = {
   square: "square",
 };
 
+const status = {
+  init: "init",
+};
+
 const Question = {
   id: 0, // This is not the real ID, but we will use it as an order field
   title: "Your Title",
@@ -118,6 +122,7 @@ const Question = {
   type: questionTypes.simple,
   subType: questionSubtypes.square,
   parent_form: undefined,
+  status: status.init,
 };
 
 /***************************************************************************/
