@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import {
   Grid,
   TextField,
@@ -6,7 +7,13 @@ import {
   ButtonGroup,
   IconButton,
 } from "@material-ui/core";
-import { AddCircle, Delete, Replay, Save } from "@material-ui/icons";
+import {
+  AddCircle,
+  Delete,
+  Replay,
+  Save,
+  DragIndicator,
+} from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { saveDailyFormQuestions } from "../managers/forms";
@@ -34,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "1rem",
   },
   iconButton: {
-    width: "10%",
+    width: "5%",
   },
 }));
 
@@ -49,7 +56,7 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
   }, [dailyForm]);
 
   if (!dailyForm?.questions) {
-    <Grid></Grid>;
+    return <Grid></Grid>;
   }
 
   const handleSaveDailyFormQuestions = () => {
@@ -66,7 +73,7 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
         if (question.id === Number(id)) {
           return {
             ...question,
-            status: question.status === "del" ? "del" : "mod",
+            status: question.status === "db" ? "mod" : question.status,
             [name]: e.target.value,
           };
         }
@@ -108,17 +115,43 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
   const handleDeleteDailyQuestion = (key) => {
     setEditDailyFormQuestions((prevEditQuestions) => {
       prevEditQuestions.questions = prevEditQuestions.questions.map(
-        (prevQuestion) => {
-          if (prevQuestion.key === key) {
-            return {
-              ...prevQuestion,
-              status: prevQuestion.status === "del" ? "mod" : "del",
-            };
-          }
-          return { ...prevQuestion };
-        }
+        (prevQuestion) =>
+          prevQuestion.key === key
+            ? {
+                ...prevQuestion,
+                status: prevQuestion.status === "del" ? "mod" : "del",
+              }
+            : { ...prevQuestion }
       );
       return { ...prevEditQuestions };
+    });
+  };
+
+  const handleDrag = (e) => {
+    const source = e.source.index;
+    const destination = e.destination.index;
+    if (source === destination) return true;
+    setEditDailyFormQuestions((prevEditQuestions) => {
+      let questions = [...prevEditQuestions.questions];
+      let auxQuestion = { ...questions[source] };
+      questions.splice(source, 1);
+      questions.splice(destination, 0, auxQuestion);
+      console.log({
+        ...prevEditQuestions,
+        questions: questions.map((question, i) => ({
+          ...question,
+          id: i,
+          status: question.status === "db" ? "mod" : question.status,
+        })),
+      });
+      return {
+        ...prevEditQuestions,
+        questions: questions.map((question, i) => ({
+          ...question,
+          id: i,
+          status: question.status === "db" ? "mod" : question.status,
+        })),
+      };
     });
   };
 
@@ -163,61 +196,84 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
         </ButtonGroup>
       </Grid>
       <Grid item container>
-        {editDailyFormQuestions.questions.map(
-          ({ id, title, subtitle, help, key, status }, i) => {
-            const deleted = status === "del";
-            return (
-              <Grid
-                container
-                item
-                key={`edit-${key}`}
-                alignItems="center"
-                className={classes.editDailyFormQuestion}
-              >
-                <TextField
-                  key={`${id}-0-${key}`}
-                  onChange={handleEditQuestionDailyForm}
-                  defaultValue={title}
-                  variant="outlined"
-                  label="title"
-                  id={`${id}-title-${key}`}
-                  disabled={deleted}
-                  className={classes.editDailyFormQuestionField}
-                />
-                <TextField
-                  key={`${id}-1-${key}`}
-                  onChange={handleEditQuestionDailyForm}
-                  defaultValue={subtitle}
-                  variant="outlined"
-                  label="subtitle"
-                  id={`${id}-subtitle-${key}`}
-                  disabled={deleted}
-                  className={classes.editDailyFormQuestionField}
-                />
-                <TextField
-                  key={`${id}-2-${key}`}
-                  onChange={handleEditQuestionDailyForm}
-                  defaultValue={help}
-                  variant="outlined"
-                  label="help"
-                  id={`${id}-help-${key}`}
-                  disabled={deleted}
-                  className={classes.editDailyFormQuestionField}
-                />
-                <IconButton
-                  className={classes.iconButton}
-                  aria-label={`Deletes question ${title} from the dailyForm`}
-                  onClick={() => handleDeleteDailyQuestion(key)}
-                >
-                  <Delete
-                    color={deleted ? "primary" : "secondary"}
-                    fontSize="large"
-                  />
-                </IconButton>
-              </Grid>
-            );
-          }
-        )}
+        <DragDropContext onDragEnd={handleDrag}>
+          <Droppable droppableId="editDailyFormDND">
+            {(provided) => {
+              return (
+                <div ref={provided.innerRef} {...provided.droppableProps}>
+                  {editDailyFormQuestions.questions.map(
+                    ({ id, title, subtitle, help, key, status }, i) => {
+                      const deleted = status === "del";
+                      return (
+                        <Draggable
+                          draggableId={key}
+                          index={i}
+                          key={`draggableElem-${key}`}
+                        >
+                          {(provided) => (
+                            <Grid
+                              container
+                              item
+                              key={`edit-${key}`}
+                              alignItems="center"
+                              className={classes.editDailyFormQuestion}
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                            >
+                              <DragIndicator fontSize="large" />
+                              <TextField
+                                key={`${id}-0-${key}`}
+                                onChange={handleEditQuestionDailyForm}
+                                defaultValue={title}
+                                variant="outlined"
+                                label="title"
+                                id={`${id}-title-${key}`}
+                                disabled={deleted}
+                                className={classes.editDailyFormQuestionField}
+                              />
+                              <TextField
+                                key={`${id}-1-${key}`}
+                                onChange={handleEditQuestionDailyForm}
+                                defaultValue={subtitle}
+                                variant="outlined"
+                                label="subtitle"
+                                id={`${id}-subtitle-${key}`}
+                                disabled={deleted}
+                                className={classes.editDailyFormQuestionField}
+                              />
+                              <TextField
+                                key={`${id}-2-${key}`}
+                                onChange={handleEditQuestionDailyForm}
+                                defaultValue={help}
+                                variant="outlined"
+                                label="help"
+                                id={`${id}-help-${key}`}
+                                disabled={deleted}
+                                className={classes.editDailyFormQuestionField}
+                              />
+                              <IconButton
+                                className={classes.iconButton}
+                                aria-label={`Deletes question ${title} from the dailyForm`}
+                                onClick={() => handleDeleteDailyQuestion(key)}
+                              >
+                                <Delete
+                                  color={deleted ? "primary" : "secondary"}
+                                  fontSize="large"
+                                />
+                              </IconButton>
+                            </Grid>
+                          )}
+                        </Draggable>
+                      );
+                    }
+                  )}
+                  {provided.placeholder}
+                </div>
+              );
+            }}
+          </Droppable>
+        </DragDropContext>
       </Grid>
     </>
   );
