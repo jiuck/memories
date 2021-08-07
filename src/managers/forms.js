@@ -65,6 +65,8 @@ const saveDailyFormValues = (values_list) => {
 
 const saveDailyFormQuestions = (questions_list) => {
   if (questions_list.length < 1) return false;
+  // If there is no title, nothing will change to avoid bad behaviour
+  questions_list = questions_list.filter((q) => q.title.length > 0);
   const new_questions_dump = questions_list
     .filter((q) => q.status === "new")
     .map((q) =>
