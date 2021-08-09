@@ -7,18 +7,17 @@ import {
 
 let db = new Localbase("memories");
 
-// const filter = (f, data) => {
-//   if (!data) return [{}];
-//   if (!Array.isArray(data)) return [data];
-//   let test = data.filter(f);
-//   console.lot(test);
-//   return test;
-// };
+const dataFilter = (result, filter, key = true) => {
+  if (!result) return [{}];
+  if (!Array.isArray(result)) return [{ ...result.data, key: result.key }];
+  if (key) result = result.map(({ key, data }) => ({ ...data, key }));
+  return result.filter(filter);
+};
 
-const getDailyForm = async () => {
+const getDailyForm = async (key = "dailyForm") => {
   let dailyForm = await db
     .collection("forms")
-    .doc("dailyForm")
+    .doc(key)
     .get()
     .then((form) => {
       if (!form) initDailyFormExample();
@@ -28,10 +27,8 @@ const getDailyForm = async () => {
     .collection("questions")
     .get({ keys: true })
     .then((result) => {
-      if (!result) return [{}];
-      if (!Array.isArray(result)) return [{ ...result.data, key: result.key }];
-      result.filter(({ key, data }) => data.parent_form === "dailyForm");
-      return result.map(({ key, data }) => ({ ...data, key, status: "db" }));
+      result = dataFilter(result, ({ parent_form }) => parent_form === key);
+      return result.map((props) => ({ ...props, status: "db" }));
     });
   dailyForm.questions.sort((a, b) => {
     if (a.order < b.order) {
@@ -45,7 +42,6 @@ const getDailyForm = async () => {
   return dailyForm;
 };
 
-// Save dailyForm into a new log
 const saveDailyFormValues = (values_list) => {
   const data_dump = [];
   values_list
@@ -65,16 +61,11 @@ const saveDailyFormValues = (values_list) => {
 
 const saveDailyFormQuestions = (questions_list) => {
   if (questions_list.length < 1) return false;
-  // If there is no title, nothing will change to avoid bad behaviour
+  // Filter empty titles, to avoid bad behaviour
   questions_list = questions_list.filter((q) => q.title.length > 0);
   const new_questions_dump = questions_list
     .filter((q) => q.status === "new")
-    .map((q) =>
-      db.collection("questions").add({
-        ...Form,
-        ...q,
-      })
-    );
+    .map((q) => db.collection("questions").add({ ...Form, ...q }));
   const del_questions_dump = questions_list
     .filter((q) => q.status === "del")
     .map((q) => db.collection("questions").doc(q.key).delete());
@@ -84,10 +75,7 @@ const saveDailyFormQuestions = (questions_list) => {
       db
         .collection("questions")
         .doc(q.key)
-        .update({
-          ...q,
-          modificationDate: new Date(),
-        })
+        .update({ ...q, modificationDate: new Date() })
     );
   Promise.all(new_questions_dump, del_questions_dump, mod_questions_dump);
 };
@@ -96,13 +84,9 @@ const getForms = async () => {
   let forms = await db
     .collection("forms")
     .get({ keys: true })
-    .then((result) => {
-      if (!result) return [{}];
-      if (!Array.isArray(result)) return [{ ...result.data, key: result.key }];
-      result
-        .filter(({ type }) => type !== formTypes.daily)
-        .map(({ key, data }) => ({ ...data, key }));
-    });
+    .then((result) =>
+      dataFilter(result, ({ type }) => type !== formTypes.daily)
+    );
   return forms;
 };
 
