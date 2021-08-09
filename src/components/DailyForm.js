@@ -10,7 +10,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 
 import { getDailyForm } from "../managers/forms";
-import CheckDailyForm from "./DailyFormCheck";
+import DailyFormCheck from "./DailyFormCheck";
 import DailyFormEdit from "./DailyFormEdit";
 
 const useStyles = makeStyles((theme) => ({
@@ -80,7 +80,7 @@ export default function DailyForm() {
         {edit ? (
           <DailyFormEdit dailyForm={dailyForm} setUpdate={setUpdate} />
         ) : (
-          <CheckDailyForm dailyForm={dailyForm} />
+          <DailyFormCheck dailyForm={dailyForm} />
         )}
       </Grid>
     </Paper>

@@ -34,10 +34,10 @@ const getDailyForm = async () => {
       return result.map(({ key, data }) => ({ ...data, key, status: "db" }));
     });
   dailyForm.questions.sort((a, b) => {
-    if (a.id < b.id) {
+    if (a.order < b.order) {
       return -1;
     }
-    if (a.id > b.id) {
+    if (a.order > b.order) {
       return 1;
     }
     return 0;

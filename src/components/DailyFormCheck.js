@@ -32,12 +32,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CheckDailyForm({ dailyForm }) {
+export default function DailyFormCheck({ dailyForm }) {
   const classes = useStyles();
   const [tempDailyFormValues, setTempDailyFormValues] = useState({});
 
   useEffect(() => {
-    if (dailyForm && dailyForm.questions) {
+    if (dailyForm?.questions) {
       setTempDailyFormValues(initValuesDailyForm(dailyForm));
     }
   }, [dailyForm]);
@@ -93,8 +93,8 @@ export default function CheckDailyForm({ dailyForm }) {
         </ButtonGroup>
       </Grid>
       <Grid item container>
-        {dailyForm.questions.map(({ id, title, subtitle, help }, i) => (
-          <Grid container item alignItems="center">
+        {dailyForm.questions.map(({ title, subtitle, help }, i) => (
+          <Grid container item alignItems="center" key={`container-${i}`}>
             <Checkbox
               checked={tempDailyFormValues[i].value}
               key={i}

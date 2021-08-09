@@ -21,60 +21,67 @@ const initDailyFormExample = async () => {
 
   db.collection("questions").add({
     ...Question,
-    id: 0,
+    order: 0,
     title: "Good Sleep",
     subtitle: "I slept good today",
     help: undefined,
     parent_form: "dailyForm",
+    status: status.init,
   });
 
   db.collection("questions").add({
     ...Question,
-    id: 2,
+    order: 2,
     title: "Happy cat",
     subtitle: "My cat wanted me to pet him",
     help: undefined, //optional
     parent_form: "dailyForm",
+    status: status.init,
   });
   db.collection("questions").add({
     ...Question,
-    id: 3,
+    order: 3,
     title: "Overworked",
     subtitle: "Today I overworked",
     help: undefined, //optional
     parent_form: "dailyForm",
+    status: status.init,
   });
   db.collection("questions").add({
     ...Question,
-    id: 4,
+    order: 4,
     title: "Morning exercises",
     subtitle: "I did my morning exercises routine",
     help: undefined, //optional
     parent_form: "dailyForm",
+    status: status.init,
   });
   db.collection("questions").add({
     ...Question,
-    id: 5,
+    order: 5,
     title: "Had breakfast",
     subtitle: "Had breakfast",
     help: undefined, //optional
     parent_form: "dailyForm",
+    status: status.init,
   });
   db.collection("questions").add({
     ...Question,
-    id: 6,
+    order: 6,
     title: "Had lunch",
     subtitle: "Had lunch",
     help: undefined, //optional
     parent_form: "dailyForm",
+    status: status.init,
   });
   db.collection("questions").add({
     ...Question,
-    id: 7,
+    order: 7,
     title: "Had dinner",
     subtitle: "Had dinner",
     help: undefined, //optional
     parent_form: "dailyForm",
+    status: status.init,
   });
 };
 
@@ -113,7 +120,7 @@ const status = {
 };
 
 const Question = {
-  id: 0, // This is not the real ID, but we will use it as an order field
+  order: 0,
   title: "Your Title",
   subtitle: "Your Subtitle",
   help: "This field should be of help to remember the reason of this form. Sometimes we need more help to remember or understand",

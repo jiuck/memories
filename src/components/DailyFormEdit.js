@@ -66,17 +66,19 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
   };
 
   const handleEditQuestionDailyForm = (e) => {
-    const [questionID, questionName, key] = e.target.id.split("-");
+    const [questionOrder, questionName] = e.target.id.split("-");
+    console.log(questionOrder, questionName);
     setEditDailyFormQuestions((prevQuestions) =>
-      prevQuestions.map(({ id, status, ...other }) => {
-        if (id === Number(questionID)) {
+      prevQuestions.map(({ order, status, ...other }) => {
+        if (order === Number(questionOrder)) {
           return {
             ...other,
+            order,
             status: status === "db" ? "mod" : status,
             [questionName]: e.target.value,
           };
         }
-        return { ...other, status, id };
+        return { ...other, status, order };
       })
     );
   };
@@ -90,7 +92,7 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
       ...prevEditQuestions,
       {
         key: `tempKey${Math.random() * 100000000}`,
-        id: prevEditQuestions.length + 1,
+        order: prevEditQuestions.length + 1,
         title: "",
         subtitle: "",
         help: "",
@@ -130,7 +132,7 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
       return [
         ...questions.map((question, i) => ({
           ...question,
-          id: i,
+          order: i,
           status: question.status === "db" ? "mod" : question.status,
         })),
       ];
@@ -184,7 +186,7 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
               return (
                 <div ref={provided.innerRef} {...provided.droppableProps}>
                   {editDailyFormQuestions.map(
-                    ({ id, title, subtitle, help, key, status }, i) => {
+                    ({ order, title, subtitle, help, key, status }, i) => {
                       const deleted = status === "del";
                       return (
                         <Draggable
@@ -205,32 +207,32 @@ export default function DailyFormEdit({ dailyForm, setUpdate }) {
                             >
                               <DragIndicator fontSize="large" />
                               <TextField
-                                key={`${id}-0-${key}`}
+                                key={`${order}-0-${key}`}
                                 onChange={handleEditQuestionDailyForm}
                                 defaultValue={title}
                                 variant="outlined"
                                 label="title"
-                                id={`${id}-title-${key}`}
+                                id={`${order}-title-${key}`}
                                 disabled={deleted}
                                 className={classes.editDailyFormQuestionField}
                               />
                               <TextField
-                                key={`${id}-1-${key}`}
+                                key={`${order}-1-${key}`}
                                 onChange={handleEditQuestionDailyForm}
                                 defaultValue={subtitle}
                                 variant="outlined"
                                 label="subtitle"
-                                id={`${id}-subtitle-${key}`}
+                                id={`${order}-subtitle-${key}`}
                                 disabled={deleted}
                                 className={classes.editDailyFormQuestionField}
                               />
                               <TextField
-                                key={`${id}-2-${key}`}
+                                key={`${order}-2-${key}`}
                                 onChange={handleEditQuestionDailyForm}
                                 defaultValue={help}
                                 variant="outlined"
                                 label="help"
-                                id={`${id}-help-${key}`}
+                                id={`${order}-help-${key}`}
                                 disabled={deleted}
                                 className={classes.editDailyFormQuestionField}
                               />
