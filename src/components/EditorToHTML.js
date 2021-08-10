@@ -6,6 +6,13 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import SaveIcon from "@material-ui/icons/Save";
 import { useParams } from "react-router-dom";
 
+import {
+  getDocument,
+  saveDocument,
+  updateDocument,
+} from "../managers/documents";
+import { Document } from "../init_data/initDocuments";
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: "1rem",
@@ -20,64 +27,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const initTitle = () => {
-  const savedTitle = `writtenMemory-${new Date().toDateString()}`;
-  if (localStorage.getItem(savedTitle)) {
-    const countMemories = Object.keys(localStorage).filter((name) =>
-      name.includes(savedTitle)
-    ).length;
-    return `${new Date().toDateString()} ${countMemories}`;
-  }
-  return `${new Date().toDateString()}`;
-};
-
 function EditorToHTML() {
   const classes = useStyles();
+  // TODO: Change name of id -> key
   const { id } = useParams();
-  // Text Memory setup
-  const [memory, setMemory] = useState(() => {
-    if (!localStorage.getItem("draftWrittenMemory")) {
-      localStorage.setItem("draftWrittenMemory", "");
-    }
-    return localStorage.getItem("draftWrittenMemory");
-  });
-  // Text Memory Title setup
-  const [title, setTitle] = useState(() => {
-    if (!localStorage.getItem("draftWrittenMemoryTitle")) {
-      localStorage.setItem("draftWrittenMemoryTitle", initTitle());
-    }
-    return localStorage.getItem("draftWrittenMemoryTitle");
-  });
+  const [document, setDocument] = useState({});
 
-  // Retrieve the written Memory if editing
   useEffect(() => {
-    if (id) {
-      let auxMemory = localStorage.getItem(id);
-      if (auxMemory) {
-        setMemory(auxMemory);
-        setTitle(id.replace("writtenMemory-", ""));
-      }
-    }
+    getDocument(id ?? "temp").then((data) => {
+      setDocument(data);
+    });
   }, [id]);
 
   const onChangeEditor = (e) => {
-    setMemory(e.target.value);
-    localStorage.setItem("draftWrittenMemory", e.target.value);
-  };
-  const deleteMemory = () => {
-    localStorage.setItem("draftWrittenMemory", "");
-    localStorage.setItem("draftWrittenMemoryTitle", title);
-    setMemory("");
-    setTitle(initTitle());
-  };
-  const saveMemory = () => {
-    localStorage.setItem(`writtenMemory-${title}`, memory);
-    deleteMemory();
+    setDocument((other) => ({ ...other, content: e.target.value }));
+    updateDocument(document);
   };
   const onChangeTitle = (e) => {
-    setTitle(e.target.value);
-    localStorage.setItem("draftWrittenMemoryTitle", e.target.value);
+    setDocument((other) => ({ ...other, title: e.target.value }));
+    updateDocument(document);
   };
+
+  const handleSaveDocument = () => {
+    saveDocument(document);
+  };
+
+  const handleResetDocument = () => {
+    setDocument({ ...Document });
+  };
+
+  if (!document) return <Grid></Grid>;
 
   return (
     <Paper elevation={3} className={classes.paper}>
@@ -89,13 +68,13 @@ function EditorToHTML() {
             variant="outlined"
             className={classes.title}
             onChange={onChangeTitle}
-            value={title ? title : ""}
+            value={document?.title ?? ""}
             fullWidth
           />
         </Grid>
 
         <Grid item>
-          <DefaultEditor value={memory} onChange={onChangeEditor} />
+          <DefaultEditor value={document.content} onChange={onChangeEditor} />
         </Grid>
 
         <Grid item container justify="flex-end" className={classes.buttonGroup}>
@@ -108,7 +87,7 @@ function EditorToHTML() {
               aria-label="Add new Daily Form"
               variant="contained"
               color="primary"
-              onClick={saveMemory}
+              onClick={handleSaveDocument}
               startIcon={<SaveIcon fontSize="large" />}
             >
               Save
@@ -117,10 +96,10 @@ function EditorToHTML() {
               aria-label="Reset the Daily Form"
               variant="contained"
               color="primary"
-              onClick={deleteMemory}
+              onClick={handleResetDocument}
               startIcon={<DeleteIcon fontSize="large" />}
             >
-              Delete
+              Reset
             </Button>
           </ButtonGroup>
         </Grid>

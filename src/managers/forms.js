@@ -4,15 +4,9 @@ import {
   formTypes,
   initDailyFormExample,
 } from "./../init_data/initForms";
+import { dataFilter } from "./utils";
 
 let db = new Localbase("memories");
-
-const dataFilter = (result, filter, key = true) => {
-  if (!result) return [{}];
-  if (!Array.isArray(result)) return [{ ...result.data, key: result.key }];
-  if (key) result = result.map(({ key, data }) => ({ ...data, key }));
-  return result.filter(filter);
-};
 
 const getDailyForm = async (key = "dailyForm") => {
   let dailyForm = await db

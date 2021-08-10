@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { DataGrid } from "@material-ui/data-grid";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -10,6 +10,7 @@ import {
   Typography,
 } from "../../node_modules/@material-ui/core";
 import { makeStyles } from "../../node_modules/@material-ui/core/styles";
+import { getDocuments, deleteDocuments } from "../managers/documents";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -29,11 +30,15 @@ const useStyles = makeStyles((theme) => ({
 const Archive = () => {
   const classes = useStyles();
   const [selection, setSelection] = useState([]);
+  const [documents, setDocuments] = useState([]);
+
+  useEffect(() => {
+    getDocuments().then((documents) => {
+      setDocuments(documents);
+    });
+  }, []);
   const handleDeleteWrittenMemories = () => {
-    let toDelete = writtenMemoriesRows().filter(({ id }) =>
-      selection.includes(id)
-    );
-    toDelete.forEach(({ realTitle }) => localStorage.removeItem(realTitle));
+    deleteDocuments();
     setSelection([]);
   };
   const handleSelectionChange = (newSelection) => {
@@ -45,6 +50,7 @@ const Archive = () => {
       headerName: "ID",
       id: 0,
       width: 100,
+      render: (rowData) => rowData.tableData.id + 1,
     },
     {
       field: "title",
@@ -53,7 +59,7 @@ const Archive = () => {
       width: 300,
     },
     {
-      field: "text",
+      field: "content",
       headerName: "Piece of text",
       id: 2,
       width: 300,
@@ -65,7 +71,7 @@ const Archive = () => {
       width: 110,
       renderCell: (params) => (
         <Link
-          to={`/editor/${encodeURIComponent(params.row.realTitle)}`}
+          to={`/editor/${encodeURIComponent(params.row.key)}`}
           className={classes.editButton}
         >
           <Button variant="contained" color="primary" size="small">
@@ -75,21 +81,6 @@ const Archive = () => {
       ),
     },
   ];
-  const writtenMemoriesRows = () => {
-    const entries = Object.entries(localStorage);
-    let rows = [];
-    for (let [key, value] of entries) {
-      if (key.includes("writtenMemory-")) {
-        rows.push({
-          id: rows.length,
-          realTitle: key,
-          title: key.replace("writtenMemory-", ""),
-          text: value.slice(0, 150),
-        });
-      }
-    }
-    return rows;
-  };
 
   return (
     <Paper>
@@ -112,7 +103,7 @@ const Archive = () => {
           </Grid>
           <Grid item className={classes.sectionTable}>
             <DataGrid
-              rows={writtenMemoriesRows()}
+              rows={documents}
               columns={writtenMemoriesColumns}
               pageSize={10}
               checkboxSelection
