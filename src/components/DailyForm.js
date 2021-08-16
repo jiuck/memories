@@ -31,9 +31,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DailyForm() {
+  // There is a warining because of the GroupButton having a lack of the Paper or button properties. The following ones are to blame:
+  //    disableElevation={false}
+  //    disableFocusRipple={false}
+  //    disableRipple={false}
+  //    fullWidth = { false}
+  // Seen here some possible explanation: https://stackoverflow.com/questions/66570397/react-material-ui-warning-react-does-not-recognize-the-attribute-prop-on-a
+  // TODO: Fix it
+
   const classes = useStyles();
   const [dailyForm, setDailyForm] = useState([]);
-  const [edit, setEdit] = useState(true);
+  const [edit, setEdit] = useState(false);
   const [update, setUpdate] = useState(false);
 
   useEffect(() => {
