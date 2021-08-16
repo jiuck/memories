@@ -16,6 +16,7 @@ MVP2
 * Being able to create a notification Schedule with direct link to a Form
 
 MVP3
+* Add TypeScript
 * Synchronize with Google Drive
 * Make basic statistics on data
 * Starting on testing
