@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { DataGrid } from "@material-ui/data-grid";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import {
   Grid,
   Paper,
   Button,
   IconButton,
   Typography,
+  ButtonGroup,
 } from "../../node_modules/@material-ui/core";
 import { makeStyles } from "../../node_modules/@material-ui/core/styles";
 import { getDocuments, deleteDocuments } from "../managers/documents";
@@ -38,11 +40,13 @@ const Archive = () => {
     });
   }, []);
   const handleDeleteWrittenMemories = () => {
-    deleteDocuments();
+    deleteDocuments(selection);
     setSelection([]);
   };
   const handleSelectionChange = (newSelection) => {
-    setSelection(newSelection.selectionModel);
+    setSelection(
+      (prevSelection) => prevSelection + newSelection.selectionModel
+    );
   };
   const writtenMemoriesColumns = [
     {
@@ -74,9 +78,20 @@ const Archive = () => {
           to={`/editor/${encodeURIComponent(params.row.key)}`}
           className={classes.editButton}
         >
-          <Button variant="contained" color="primary" size="small">
-            Edit
-          </Button>
+          <ButtonGroup
+            variant="contained"
+            color="primary"
+            aria-label="Button Group"
+          >
+            <Button
+              aria-label="Add new Daily Form"
+              variant="contained"
+              color="primary"
+              startIcon={<EditIcon fontSize="large" />}
+            >
+              Edit
+            </Button>
+          </ButtonGroup>
         </Link>
       ),
     },
@@ -109,7 +124,7 @@ const Archive = () => {
               checkboxSelection
               disableSelectionOnClick
               autoheight
-              onSelectionModelChange={handleSelectionChange}
+              onSelectionModelChange={(e) => handleSelectionChange(e)}
               selectionModel={selection}
             />
           </Grid>

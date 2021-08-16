@@ -4,7 +4,7 @@ import { Paper, TextField, Grid, ButtonGroup, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SaveIcon from "@material-ui/icons/Save";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 import {
   getDocument,
@@ -29,31 +29,39 @@ const useStyles = makeStyles((theme) => ({
 
 function EditorToHTML() {
   const classes = useStyles();
-  // TODO: Change name of id -> key
-  const { id } = useParams();
+  const { key = "temp" } = useParams();
+  let history = useHistory();
   const [document, setDocument] = useState({});
 
   useEffect(() => {
-    getDocument(id ?? "temp").then((data) => {
+    getDocument(key).then((data) => {
       setDocument(data);
     });
-  }, [id]);
+  }, [key]);
 
   const onChangeEditor = (e) => {
     setDocument((other) => ({ ...other, content: e.target.value }));
-    updateDocument(document);
+    updateDocument(document, key);
   };
   const onChangeTitle = (e) => {
     setDocument((other) => ({ ...other, title: e.target.value }));
-    updateDocument(document);
+    updateDocument(document, key);
   };
 
   const handleSaveDocument = () => {
-    saveDocument(document);
+    if (key !== "temp") {
+      updateDocument(document, key);
+    } else {
+      saveDocument(document);
+    }
+    setDocument({ ...Document });
   };
 
-  const handleResetDocument = () => {
+  const handleResetDocument = (history) => {
     setDocument({ ...Document });
+    if (key !== "temp") {
+      history.push("/");
+    }
   };
 
   if (!document) return <Grid></Grid>;
@@ -96,7 +104,7 @@ function EditorToHTML() {
               aria-label="Reset the Daily Form"
               variant="contained"
               color="primary"
-              onClick={handleResetDocument}
+              onClick={() => handleResetDocument(history)}
               startIcon={<DeleteIcon fontSize="large" />}
             >
               Reset

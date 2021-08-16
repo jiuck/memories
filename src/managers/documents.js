@@ -26,14 +26,14 @@ const getDocuments = async () => {
     });
 };
 
-const updateDocument = (document, key = "temp") => {
+const updateDocument = (document, key) => {
   db.collection("documents")
     .doc(key)
-    .add(
+    .update(
       {
+        ...Document,
         ...document,
-        Document,
-        creationDate: new Date(),
+        modificationDate: new Date(),
       },
       key
     );
@@ -45,7 +45,6 @@ const saveDocument = (document) => {
     ...document,
     creationDate: new Date(),
   });
-  db.collection("documents").doc("temp").update({ Document });
 };
 
 const deleteDocuments = (keys_list) => {

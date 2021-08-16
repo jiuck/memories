@@ -220,7 +220,7 @@ export default function App(props) {
             <Route path="/archive" component={Archive} />
             <Route path="/forms" component={FormsHome} />
             <Route path="/stats" component={Placeholder} />
-            <Route path="/editor/:id" component={EditorToHTML} />
+            <Route path="/editor/:key" component={EditorToHTML} />
             <Route path="/editor/" component={EditorToHTML} />
             <Route path="/alarms/" component={Placeholder} />
             <Route exact path="/" component={EditorToHTML} />
