@@ -18,16 +18,18 @@ MVP2
 MVP3
 * Synchronize with Google Drive
 * Make basic statistics on data
+* Starting on testing
+* Allow download/upload the DB
 * Prepare to deploy
 
 Features to come:
 * Convert the web to a Progressive Web App
 * Upload/Download DB
-* Data analysis
-** Creation of simple charts to aggregate forms data
+* Data analysis:
+** Creation of simple charts to aggregate form's data
 ** Simple text related charts
 ** Charts playground Creation/edition/delete
-* Connection to Google Drive to allow bigger DB
+* Connection to Google Drive to allow bigger DBs
 * Adding extra security by encription
 
 
