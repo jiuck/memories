@@ -8,7 +8,7 @@ MVP1
 * **Being able to create/edit/delete the home Form (Edit mode)**
 
 MVP2
-* **Create git versioning infra (Adding preprod)**
+* **Add preprod branch**
 * **PWA (preparing also for typescript)**
 * Locales
 * Being able to display/check a Complex Form (checks form)
