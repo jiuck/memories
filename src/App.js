@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import EditorToHTML from "./components/EditorToHTML";
+import Note from "./components/Note";
 import Archive from "./components/Archive";
 import FormsHome from "./components/FormsHome";
 
@@ -26,8 +26,8 @@ import PostAddIcon from "@material-ui/icons/PostAdd";
 import AccessAlarmIcon from "@material-ui/icons/AccessAlarm";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
- 
-const drawerWidth = 240;
+
+const drawerWidth = 200;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -118,7 +118,7 @@ export default function App(props) {
       text: "Home",
       link: "/",
       icon: <HomeIcon />,
-      component: <EditorToHTML />,
+      component: <Note />,
       exact: false,
     },
     {
@@ -220,10 +220,10 @@ export default function App(props) {
             <Route path="/archive" component={Archive} />
             <Route path="/forms" component={FormsHome} />
             <Route path="/stats" component={Placeholder} />
-            <Route path="/editor/:key" component={EditorToHTML} />
-            <Route path="/editor/" component={EditorToHTML} />
+            <Route path="/editor/:key" component={Note} />
+            <Route path="/editor/" component={Note} />
             <Route path="/alarms/" component={Placeholder} />
-            <Route exact path="/" component={EditorToHTML} />
+            <Route exact path="/" component={Note} />
           </Switch>
         </main>
       </BrowserRouter>

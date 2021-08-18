@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function EditorToHTML() {
+function Note() {
   const classes = useStyles();
   const { key = "temp" } = useParams();
   let history = useHistory();
@@ -85,7 +85,12 @@ function EditorToHTML() {
           <DefaultEditor value={document.content} onChange={onChangeEditor} />
         </Grid>
 
-        <Grid item container justify="flex-end" className={classes.buttonGroup}>
+        <Grid
+          item
+          container
+          justifyContent="flex-end"
+          className={classes.buttonGroup}
+        >
           <ButtonGroup
             variant="contained"
             color="primary"
@@ -116,4 +121,4 @@ function EditorToHTML() {
   );
 }
 
-export default EditorToHTML;
+export default Note;
