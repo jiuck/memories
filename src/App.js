@@ -1,32 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Note from "./components/Note";
 import Archive from "./components/Archive";
 import FormsHome from "./components/FormsHome";
 import { initializeDB } from "./managers/utils";
 
-import AppBar from "@material-ui/core/AppBar";
-import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
-import Hidden from "@material-ui/core/Hidden";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import HomeIcon from "@material-ui/icons/Home";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
-import SpeakerNotesIcon from "@material-ui/icons/SpeakerNotes";
-import BarChartIcon from "@material-ui/icons/BarChart";
-import InfoIcon from "@material-ui/icons/Info";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import PostAddIcon from "@material-ui/icons/PostAdd";
-import AccessAlarmIcon from "@material-ui/icons/AccessAlarm";
-import SettingsIcon from "@material-ui/icons/Settings";
+import {
+  AppBar,
+  Drawer,
+  Button,
+  Hidden,
+  IconButton,
+  Toolbar,
+  Typography,
+  Divider,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@material-ui/core";
+import {
+  Menu,
+  Home,
+  ChevronLeft,
+  LibraryBooks,
+  SpeakerNotes,
+  BarChart,
+  Info,
+  PostAdd,
+  AccessAlarm,
+  Settings,
+} from "@material-ui/icons";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -85,56 +89,56 @@ export default function App(props) {
     {
       text: "Editor",
       link: "/editor",
-      icon: <PostAddIcon />,
+      icon: <PostAdd />,
       component: <Placeholder />,
       exact: false,
     },
     {
       text: "Archive",
       link: "/archive",
-      icon: <LibraryBooksIcon />,
+      icon: <LibraryBooks />,
       component: <Archive />,
       exact: false,
     },
     {
       text: "Forms",
       link: "/forms",
-      icon: <SpeakerNotesIcon />,
+      icon: <SpeakerNotes />,
       component: <FormsHome />,
       exact: false,
     },
     {
       text: "Stats",
       link: "/stats",
-      icon: <BarChartIcon />,
+      icon: <BarChart />,
       component: <Placeholder />,
       exact: false,
     },
     {
       text: "Alarms",
       link: "/alarms",
-      icon: <AccessAlarmIcon />,
+      icon: <AccessAlarm />,
       component: <Placeholder />,
       exact: false,
     },
     {
       text: "Home",
       link: "/",
-      icon: <HomeIcon />,
+      icon: <Home />,
       component: <Note />,
       exact: false,
     },
     {
       text: "About",
       link: "/about",
-      icon: <InfoIcon />,
+      icon: <Info />,
       component: <Placeholder />,
       exact: false,
     },
     {
       text: "Settings",
       link: "/settings",
-      icon: <SettingsIcon />,
+      icon: <Settings />,
       component: <Placeholder />,
       exact: false,
     },
@@ -171,7 +175,7 @@ export default function App(props) {
             onClick={handleDrawerToggle}
             className={classes.menuButton}
           >
-            <MenuIcon />
+            <Menu />
           </IconButton>
           <Typography variant="h6" noWrap>
             Memories
@@ -201,7 +205,7 @@ export default function App(props) {
                   edge="end"
                   onClick={handleDrawerToggle}
                 >
-                  <ChevronLeftIcon />
+                  <ChevronLeft />
                 </IconButton>
               </div>
               <Divider />
@@ -218,7 +222,7 @@ export default function App(props) {
             >
               <div className={classes.drawerHeader}>
                 <IconButton>
-                  <MenuIcon />
+                  <Menu />
                 </IconButton>
               </div>
               <Divider />
