@@ -1,0 +1,26 @@
+{
+    "editor": {
+        "buttons": {
+            "save":"Save",
+            "reset":"Reset"
+        },
+        "forms": {
+            "title": "Title",
+            "content": "Content"
+        }
+    },
+    "archive": {
+        "title": "Archive",
+        "editorSection":{
+            "title": "Written Memories",
+            "columns":
+            {
+                "id":"ID", 
+                "title":"Title", 
+                "content":"Piece of Text", 
+                "edit":"Edit"
+            },
+            "editButton": "Edit"
+        }
+    }
+}

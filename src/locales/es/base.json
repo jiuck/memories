@@ -1,0 +1,31 @@
+{
+    "editor": {
+        "buttons": {
+            "save":"Guardar",
+            "reset":"Limpiar"
+        },
+        "forms": {
+            "title": "Título",
+            "content": "Contenido"
+        }
+    },
+    "archive": {
+        "title": "Archivo",
+        "editorSection":{
+            "title": "Memorias Escritas",
+            "columns":
+            {
+                "id":"ID", 
+                "title":"Título", 
+                "content":"Trozo de texto", 
+                "edit":"Editar"
+            },
+            "editButton": "Editar"
+        }
+    },
+    "forms": {
+        "title": "Título"
+
+    }
+}
+// TODO: finish translations

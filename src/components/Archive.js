@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { DataGrid } from "@material-ui/data-grid";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -33,10 +34,12 @@ const Archive = () => {
   const classes = useStyles();
   const [selection, setSelection] = useState([]);
   const [documents, setDocuments] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     getDocuments().then((documents) => {
-      setDocuments(documents);
+      // clear Draft document
+      setDocuments(documents.filter(({ key }) => key !== "temp"));
     });
   }, []);
   const handleDeleteWrittenMemories = () => {
@@ -51,26 +54,26 @@ const Archive = () => {
   const writtenMemoriesColumns = [
     {
       field: "id",
-      headerName: "ID",
+      headerName: t("archive.editorSection.columns.id"),
       id: 0,
       width: 100,
       render: (rowData) => rowData.tableData.id + 1,
     },
     {
       field: "title",
-      headerName: "Memory Title",
+      headerName: t("archive.editorSection.columns.title"),
       id: 1,
       width: 300,
     },
     {
       field: "content",
-      headerName: "Piece of text",
+      headerName: t("archive.editorSection.columns.content"),
       id: 2,
       width: 300,
     },
     {
       field: "edit",
-      headerName: "Edit",
+      headerName: t("archive.editorSection.columns.edit"),
       id: 3,
       width: 110,
       renderCell: (params) => (
@@ -89,7 +92,7 @@ const Archive = () => {
               color="primary"
               startIcon={<EditIcon fontSize="large" />}
             >
-              Edit
+              {t("archive.editorSection.editButton")}
             </Button>
           </ButtonGroup>
         </Link>
@@ -107,7 +110,9 @@ const Archive = () => {
             alignItems="center"
             className={classes.sectionTitle}
           >
-            <Typography variant="h4">Written Memories</Typography>
+            <Typography variant="h4">
+              {t("archive.editorSection.title")}
+            </Typography>
             <IconButton
               variant="contained"
               size="small"
@@ -120,6 +125,7 @@ const Archive = () => {
             <DataGrid
               rows={documents}
               columns={writtenMemoriesColumns}
+              rowsPerPageOptions={[10, 25, 50, 100]}
               pageSize={10}
               checkboxSelection
               disableSelectionOnClick

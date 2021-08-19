@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { DefaultEditor } from "react-simple-wysiwyg";
 import { Paper, TextField, Grid, ButtonGroup, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -32,6 +33,7 @@ function Note() {
   const { key = "temp" } = useParams();
   let history = useHistory();
   const [document, setDocument] = useState({});
+  const { t } = useTranslation();
 
   useEffect(() => {
     getDocument(key).then((data) => {
@@ -72,7 +74,7 @@ function Note() {
         <Grid item>
           <TextField
             id="title"
-            label="Title"
+            label={t("editor.forms.title")}
             variant="outlined"
             className={classes.title}
             onChange={onChangeTitle}
@@ -82,7 +84,11 @@ function Note() {
         </Grid>
 
         <Grid item>
-          <DefaultEditor value={document.content} onChange={onChangeEditor} />
+          <DefaultEditor
+            id={t("editor.forms.content")}
+            value={document.content}
+            onChange={onChangeEditor}
+          />
         </Grid>
 
         <Grid
@@ -103,7 +109,7 @@ function Note() {
               onClick={handleSaveDocument}
               startIcon={<SaveIcon fontSize="large" />}
             >
-              Save
+              {t("editor.buttons.save")}
             </Button>
             <Button
               aria-label="Reset the Daily Form"
@@ -112,7 +118,7 @@ function Note() {
               onClick={() => handleResetDocument(history)}
               startIcon={<DeleteIcon fontSize="large" />}
             >
-              Reset
+              {t("editor.buttons.reset")}
             </Button>
           </ButtonGroup>
         </Grid>
