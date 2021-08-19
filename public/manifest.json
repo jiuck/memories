@@ -12,7 +12,7 @@
       {
         "src": "/android-icon-512x512.png",
         "type": "image/png",
-        "sizes": "192x192"
+        "sizes": "512x512"
       },
       {
         "src": "/android-icon-192x192.png",
@@ -30,9 +30,9 @@
         "sizes": "180x180"
       },
       {
-        "src": "/apple-icon-152x152.png",
+        "src": "/apple-icon-512x512.png",
         "type": "image/png",
-        "sizes": "152x152"
+        "sizes": "512x512"
       },
       {
         "src": "/apple-icon-144x144.png",
