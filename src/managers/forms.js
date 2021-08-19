@@ -1,9 +1,5 @@
 import Localbase from "localbase";
-import {
-  Form,
-  formTypes,
-  initDailyFormExample,
-} from "./../init_data/initForms";
+import { Form, formTypes } from "./../init_data/initForms";
 import { dataFilter } from "./utils";
 
 let db = new Localbase("memories");
@@ -13,10 +9,7 @@ const getDailyForm = async (key = "dailyForm") => {
     .collection("forms")
     .doc(key)
     .get()
-    .then((form) => {
-      if (!form) initDailyFormExample();
-      return form;
-    });
+    .then((form) => form);
   dailyForm["questions"] = await db
     .collection("questions")
     .get({ keys: true })

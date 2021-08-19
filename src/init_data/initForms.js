@@ -2,7 +2,7 @@ import Localbase from "localbase";
 
 let db = new Localbase("memories");
 
-const initDailyFormExample = async () => {
+const initDailyForm = async () => {
   // Creates a init DB for the Daily form if it doesn't already exists
 
   const initExists = await db.collection("forms").doc("dailyForm").get();
@@ -144,7 +144,7 @@ const Value = {
 };
 
 export {
-  initDailyFormExample,
+  initDailyForm,
   Form,
   formTypes,
   questionTypes,

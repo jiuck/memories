@@ -7,6 +7,7 @@ import { initializeDB } from "./managers/utils";
 
 import AppBar from "@material-ui/core/AppBar";
 import Drawer from "@material-ui/core/Drawer";
+import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -143,6 +144,11 @@ export default function App(props) {
     return (
       <React.Fragment>
         <List>
+          <ListItem key="initDB" onClick={initializeDB}>
+            <Button fullWidth color="secondary" variant="contained">
+              InitDB
+            </Button>
+          </ListItem>
           {links.map(({ text, link, icon }, index) => (
             <ListItem key={text} component={Link} to={link}>
               <ListItemIcon>{icon}</ListItemIcon>
