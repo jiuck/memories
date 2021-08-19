@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Note from "./components/Note";
 import Archive from "./components/Archive";
 import FormsHome from "./components/FormsHome";
+import { initializeDB } from "./managers/utils";
 
 import AppBar from "@material-ui/core/AppBar";
 import Drawer from "@material-ui/core/Drawer";
@@ -24,6 +25,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import PostAddIcon from "@material-ui/icons/PostAdd";
 import AccessAlarmIcon from "@material-ui/icons/AccessAlarm";
+import SettingsIcon from "@material-ui/icons/Settings";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -128,6 +130,13 @@ export default function App(props) {
       component: <Placeholder />,
       exact: false,
     },
+    {
+      text: "Settings",
+      link: "/settings",
+      icon: <SettingsIcon />,
+      component: <Placeholder />,
+      exact: false,
+    },
   ];
 
   const DrawerComponent = () => {
@@ -223,6 +232,7 @@ export default function App(props) {
             <Route path="/editor/:key" component={Note} />
             <Route path="/editor/" component={Note} />
             <Route path="/alarms/" component={Placeholder} />
+            <Route path="/settings/" component={Placeholder} />
             <Route exact path="/" component={Note} />
           </Switch>
         </main>
