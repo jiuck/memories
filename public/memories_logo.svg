@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="512"
+   height="512"
+   xlink="http://www.w3.org/1999/xlink"
+   version="1.1"
+   id="svg3873"
+   sodipodi:docname="memories_logo.svg"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
+  <metadata
+     id="metadata3879">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Memories logo</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3877">
+    <linearGradient
+       id="linearGradient6166"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop6164" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4702"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop4700" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4688"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#ffd96e;stop-opacity:1;"
+         offset="0"
+         id="stop4686" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2560"
+     inkscape:window-height="1403"
+     id="namedview3875"
+     showgrid="false"
+     inkscape:zoom="1.6367188"
+     inkscape:cx="145.1074"
+     inkscape:cy="256"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g3871" />
+  <title
+     id="title3859">Memories logo</title>
+  <g
+     id="g3871">
+    <title
+       id="title3861">Layer 1</title>
+    <rect
+       style="fill:#64e38a;fill-opacity:1;stroke:#64e38a;stroke-width:9.24506474;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect6215"
+       width="514.87073"
+       height="521.1076"
+       x="-1.7408767"
+       y="-4.9228439" />
+    <g
+       stroke-width="2"
+       stroke="null"
+       id="svg_1"
+       fill="#fbd96e"
+       style="fill-opacity:1;fill:#fbd96e;stroke:#64e38a;stroke-opacity:1">
+      <path
+         stroke="#fbd96e"
+         id="svg_2"
+         d="m418.76139,142.55707l0,45.7641c0,9.8808 -18.32059,17.90582 -40.92192,17.90582c-22.61976,0 -40.96492,-8.02502 -40.96492,-17.90582l0,-59.70757c0,-8.03218 12.16664,-14.75314 28.8167,-17.03167l-69.76319,-40.70547l0,45.79992c0,9.89513 -18.33287,17.89866 -40.94035,17.89866c-22.61976,0 -40.94035,-8.00352 -40.94035,-17.89866l0,-45.79992l-69.76319,40.70547c16.64392,2.27853 28.8167,8.99948 28.8167,17.03167l0,59.70757c0,9.8808 -18.33902,17.90582 -40.94649,17.90582s-40.96492,-8.02502 -40.96492,-17.90582l0,-45.7641l-81.85613,47.75602l245.6421,143.32539l245.69123,-143.32539l-81.90527,-47.75602zm-122.83333,117.41604c0,9.9023 -18.33287,17.90582 -40.94035,17.90582c-22.61976,0 -40.94035,-8.00352 -40.94035,-17.90582l0,-59.7004c0,-9.8808 18.32059,-17.91299 40.94035,-17.91299c22.60747,0 40.94035,8.03218 40.94035,17.91299l0,59.7004z"
+         stroke-miterlimit="10"
+         stroke-linejoin="round"
+         stroke-linecap="round"
+         stroke-width="2"
+         fill="none"
+         style="stroke-width:9;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;stroke:#64e38a;fill-opacity:1;fill:#fbd96e;stroke-opacity:1" />
+      <ellipse
+         stroke="#fbd96e"
+         id="svg_3"
+         ry="17.92732"
+         rx="40.95263"
+         cy="128.60643"
+         cx="132.14824"
+         stroke-miterlimit="10"
+         stroke-linejoin="round"
+         stroke-linecap="round"
+         stroke-width="2"
+         fill="none"
+         style="stroke-width:9;stroke-miterlimit:10;stroke-dasharray:none;fill-opacity:1;fill:#fbd96e;stroke:#64e38a;stroke-opacity:1" />
+      <path
+         stroke="#fbd96e"
+         id="svg_4"
+         d="m91.19561,128.62076c0,9.89513 18.33902,17.91299 40.96492,17.91299c22.60133,0 40.94649,-8.01785 40.94649,-17.91299l0,59.70757c0,9.87364 -18.33902,17.90582 -40.94649,17.90582c-22.6259,0 -40.96492,-8.03218 -40.96492,-17.90582l0,-59.70757zm327.56579,-0.01433c0,9.90946 -18.32059,17.92732 -40.92192,17.92732c-22.61976,0 -40.96492,-8.01785 -40.96492,-17.92732c0,-9.88797 18.34516,-17.89866 40.96492,-17.89866c22.60133,0 40.92192,8.01069 40.92192,17.89866z"
+         stroke-miterlimit="10"
+         stroke-linejoin="round"
+         stroke-linecap="round"
+         stroke-width="2"
+         fill="none"
+         style="stroke-width:9;stroke-miterlimit:10;stroke-dasharray:none;fill-opacity:1;fill:#fbd96e;stroke:#64e38a;stroke-opacity:1" />
+      <path
+         stroke="#fbd96e"
+         id="svg_5"
+         d="m336.87455,128.62076c0,9.89513 18.34516,17.91299 40.96492,17.91299c22.60133,0 40.92192,-8.01785 40.92192,-17.91299l0,59.70757c0,9.87364 -18.32059,17.90582 -40.92192,17.90582c-22.61976,0 -40.96492,-8.03218 -40.96492,-17.90582l0,-59.70757zm-40.94649,71.65195c0,9.88797 -18.33287,17.91299 -40.91578,17.91299c-22.64432,0 -40.96492,-8.02502 -40.96492,-17.91299c0,-9.9023 18.32059,-17.91299 40.96492,-17.91299c22.58291,0 40.91578,8.01069 40.91578,17.91299z"
+         stroke-miterlimit="10"
+         stroke-linejoin="round"
+         stroke-linecap="round"
+         stroke-width="2"
+         fill="none"
+         style="stroke-width:9;stroke-miterlimit:10;stroke-dasharray:none;fill-opacity:1;fill:#fbd96e;stroke:#64e38a;stroke-opacity:1" />
+      <path
+         id="svg_6"
+         d="m214.04736,200.27271c0,9.88797 18.32059,17.91299 40.96492,17.91299c22.58291,0 40.91578,-8.02502 40.91578,-17.91299l0,59.7004c0,9.91663 -18.33287,17.91299 -40.91578,17.91299c-22.64432,0 -40.96492,-7.99636 -40.96492,-17.91299l0,-59.7004z"
+         stroke-miterlimit="10"
+         stroke-linejoin="round"
+         stroke-linecap="round"
+         stroke-width="2"
+         stroke="#fbd96e"
+         fill="none"
+         style="stroke-width:9;stroke-miterlimit:10;stroke-dasharray:none;fill-opacity:1;fill:#fbd96e;stroke:#64e38a;stroke-opacity:1" />
+      <ellipse
+         stroke="#fbd96e"
+         id="svg_7"
+         ry="17.91299"
+         rx="40.94035"
+         cy="56.96882"
+         cx="254.98771"
+         stroke-miterlimit="10"
+         stroke-linejoin="round"
+         stroke-linecap="round"
+         stroke-width="2"
+         fill="none"
+         style="stroke-width:9;stroke-miterlimit:10;stroke-dasharray:none;fill-opacity:1;fill:#fbd96e;stroke:#64e38a;stroke-opacity:1" />
+      <path
+         stroke="#fbd96e"
+         id="svg_8"
+         d="m214.04736,56.96882c0,9.89513 18.32059,17.91299 40.94035,17.91299c22.60747,0 40.94035,-8.01785 40.94035,-17.91299l0,59.70757c0,9.8808 -18.33287,17.91299 -40.94035,17.91299c-22.61976,0 -40.94035,-8.03218 -40.94035,-17.91299l0,-59.70757zm40.92807,276.66966l-245.6421,-143.31822l0,139.31288l245.6421,143.31106l0,-139.30571zm0.01228,0l245.66052,-143.31822l0,139.31288l-245.66052,143.31106l0,-139.30571z"
+         stroke-miterlimit="10"
+         stroke-linejoin="round"
+         stroke-linecap="round"
+         stroke-width="2"
+         fill="none"
+         style="stroke-width:9;stroke-miterlimit:10;stroke-dasharray:none;fill-opacity:1;fill:#fbd96e;stroke:#64e38a;stroke-opacity:1" />
+    </g>
+  </g>
+</svg>
