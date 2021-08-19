@@ -2,7 +2,7 @@
   "short_name": "Memories",
   "name": "Save your memories ",
   "lang": "en",
-  "start_url": "https://jiuck.github.io/memories",
+  "start_url": "https://jiuck.github.io/",
   "background_color": "#64e38a",
   "theme_color": "#fbd96e",
   "dir": "ltr",
@@ -10,7 +10,17 @@
   "orientation": "any",
   "icons": [
       {
+        "src": "/android-icon-512x512.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
         "src": "/android-icon-192x192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/apple-icon-512x512.png",
         "type": "image/png",
         "sizes": "192x192"
       },
@@ -75,5 +85,5 @@
         "sizes": "16x16"
       }
     ],
-  "prefer_related_applications": "false"
+  "prefer_related_applications": false
 }
